@@ -82,6 +82,7 @@
     </button>
 
     <p id="emailError"></p>
+    <p id="hasilAkhir"></p>
 
     <script>
         // Event controler tombol OK
@@ -235,8 +236,31 @@
                 "Email:",
                 email
             );
-        }
+            
+            const nama = document.getElementById("nama").value.trim();
+            const jumlah = pilihanArray.length;
 
+            const radioTerpilih = document.querySelector(
+                'input[name="pilihanRadio"]:checked'
+            );
+
+            const pilihanDipilih = radioTerpilih.value;
+
+            const hasil = document.getElementById("hasilAkhir");
+
+            hasil.textContent =
+                "Hallo, nama saya " +
+                nama +
+                ", email " +
+                email +
+                " saya mempunyai sejumlah " +
+                jumlah +
+                " pilihan yaitu " +
+                pilihanArray.join(", ") +
+                ", dan saya memilih " +
+                pilihanDipilih +
+                ".";
+        }
         // Fungsi menyimpan teks pilihan ke array
         function simpanPilihan() {
 
