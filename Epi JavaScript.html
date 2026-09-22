@@ -37,33 +37,124 @@
 
     <div id="choiceInputs"></div>
 
+    <br>
+
+    <button id="btnSimpanPilihan">
+        Simpan Pilihan
+    </button>
+
     <script>
-        document.getElementById("btnJumlah").addEventListener("click", buatInputPilihan);
+        // Event controler tombol OK
+        document
+            .getElementById("btnJumlah")
+            .addEventListener("click", buatInputPilihan);
 
+        // Fungsi membuat input pilihan menggunakan loop
         function buatInputPilihan() {
-            const jumlah = Number(document.getElementById("jumlah").value);
-            const container = document.getElementById("choiceInputs");
+            
+            const jumlah = Number(
+                document.getElementById("jumlah").value
+            );
+            
+            const container = 
+                document.getElementById("choiceInputs");
 
-            container.innerHTML = "";
+        // Mengosongkan pilihan sebelumnnya 
+        container.innerHTML = "";
+        
+        // Error handling jumlah pilihan
+        if (!Number.isInteger(jumlah) || jumlah < 1 || jumlah > 10) {
 
+            alert(
+                "Jumlah pilihan harus berupa bilangan bulat 1 sampai 10."
+            );
+
+            return;
+        }
+
+        // Loop membuat input jumlah pilihan
             for (let i = 0; i < jumlah; i++) {
-                const label = document.createElement("label");
-                label.textContent = "Pilihan " + (i + 1) + " : ";
-
-                const input = document.createElement("input");
-                input.type = "text";
-                input.id = "pilihan" + i;
-
+                
                 const div = document.createElement("div");
 
+                const label = document.createElement("label");
+
+                label.textContent =
+                    "Pilihan " + (i + 1) + " : ";
+
+
+                const input = document.createElement("input");
+
+                input.type = "text";
+
+                input.id = "pilihan" + i;
+
+
                 div.appendChild(label);
+
                 div.appendChild(input);
 
                 container.appendChild(div);
-                container.appendChild(document.createElement("br"));
+
+                container.appendChild(
+                    document.createElement("br")
+                );
             }
         }
-    </script>
+
+        // Event controller tombol Simpan Pilihan
+        document
+            .getElementById("btnSimpanPilihan")
+            .addEventListener("click", simpanPilihan);
+
+        // Fungsi menyimpan teks pilihan ke array
+        function simpanPilihan() {
+
+            pilihanArray = [];
+
+            const jumlah = Number(
+                document.getElementById("jumlah").value
+            );
+
+
+            // Loop mengambil setiap teks pilihan
+            for (let i = 0; i < jumlah; i++) {
+
+                const input =
+                    document.getElementById("pilihan" + i);
+
+                const teksPilihan =
+                    input.value.trim();
+
+            // Error handling jika pilihan kosong
+            if (teksPilihan === "") {
+
+                alert(
+                    "Pilihan " + (i + 1) + " belum diisi."
+                );
+
+                input.focus();
+
+                return;
+            }
+
+
+            // Memasukkan teks ke array
+            pilihanArray.push(teksPilihan);
+        }
+
+
+        // Menampilkan array di Console
+        console.log(
+            "Array pilihan:",
+            pilihanArray
+        );
+
+        alert(
+            "Pilihan berhasil disimpan ke dalam array."
+        );
+    }
+</script>
 
 </body>
 
