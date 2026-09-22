@@ -35,6 +35,36 @@
 
     <button id="btnJumlah">OK</button>
 
+    <div id="choiceInputs"></div>
+
+    <script>
+        document.getElementById("btnJumlah").addEventListener("click", buatInputPilihan);
+
+        function buatInputPilihan() {
+            const jumlah = Number(document.getElementById("jumlah").value);
+            const container = document.getElementById("choiceInputs");
+
+            container.innerHTML = "";
+
+            for (let i = 0; i < jumlah; i++) {
+                const label = document.createElement("label");
+                label.textContent = "Pilihan " + (i + 1) + " : ";
+
+                const input = document.createElement("input");
+                input.type = "text";
+                input.id = "pilihan" + i;
+
+                const div = document.createElement("div");
+
+                div.appendChild(label);
+                div.appendChild(input);
+
+                container.appendChild(div);
+                container.appendChild(document.createElement("br"));
+            }
+        }
+    </script>
+
 </body>
 
 </html>
