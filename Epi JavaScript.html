@@ -43,6 +43,26 @@
         Simpan Pilihan
     </button>
 
+    <hr>
+
+    <h2>Pilihan</h2>
+
+    <div id="radioContainer"></div>
+
+    <br>
+
+    <label for="dropdown">Atau pilih dari Drop Down:</label>
+
+    <br><br>
+
+    <select id="dropdown"></select>
+
+    <br><br>
+
+    <button id="btnPilihanFinal">
+        OK
+    </button>
+
     <script>
         // Event controler tombol OK
         document
@@ -107,6 +127,46 @@
             .getElementById("btnSimpanPilihan")
             .addEventListener("click", simpanPilihan);
 
+        document
+            .getElementById("btnPilihanFinal")
+            .addEventListener("click", cekPilihan);
+        
+        // Fungsi cek pilihan
+        function cekPilihan() {
+
+            const radioTerpilih =
+                document.querySelector(
+                    'input[name="pilihanRadio"]:checked'
+                );
+
+            const pilihanDropdown =
+                document.getElementById("dropdown").value;
+
+
+            if (!radioTerpilih) {
+
+                alert(
+                    "Silakan pilih salah satu pilihan."
+                );
+
+                return;
+            }
+
+            console.log(
+                "Pilihan Radio:",
+                radioTerpilih.value
+            );
+
+            console.log(
+                "Pilihan Drop Down:",
+                pilihanDropdown
+            );
+
+            alert(
+                "Pilihan berhasil ditetapkan."
+            );
+        }
+
         // Fungsi menyimpan teks pilihan ke array
         function simpanPilihan() {
 
@@ -116,18 +176,79 @@
                 document.getElementById("jumlah").value
             );
 
+        // Membuat radio button dari array
+        function buatRadioButton() {
 
-            // Loop mengambil setiap teks pilihan
-            for (let i = 0; i < jumlah; i++) {
+            const container =
+                document.getElementById("radioContainer");
 
-                const input =
-                    document.getElementById("pilihan" + i);
+            container.innerHTML = "";
 
-                const teksPilihan =
-                    input.value.trim();
+            for (let i = 0; i < pilihanArray.length; i++) {
 
-            // Error handling jika pilihan kosong
-            if (teksPilihan === "") {
+                const label =
+                    document.createElement("label");
+
+                const radio =
+                    document.createElement("input");
+
+                radio.type = "radio";
+                radio.name = "pilihanRadio";
+                radio.value = pilihanArray[i];
+
+                if (i === 0) {
+                    radio.checked = true;
+                }
+
+                label.appendChild(radio);
+
+                label.appendChild(
+                    document.createTextNode(
+                        " " + pilihanArray[i]
+                    )
+                );
+
+                container.appendChild(label);
+
+                container.appendChild(
+                    document.createElement("br")
+                );
+            }
+        }
+
+        // Membuat drop down dari array
+        function buatDropdown() {
+
+            const dropdown =
+                document.getElementById("dropdown");
+
+            dropdown.innerHTML = "";
+
+            for (let i = 0; i < pilihanArray.length; i++) {
+
+                const option =
+                    document.createElement("option");
+
+                option.value = pilihanArray[i];
+
+                option.textContent =
+                    pilihanArray[i];
+
+                dropdown.appendChild(option);
+            }
+        }
+
+        // Loop mengambil setiap teks pilihan
+        for (let i = 0; i < jumlah; i++) {
+
+            const input =
+                document.getElementById("pilihan" + i);
+
+            const teksPilihan =
+                input.value.trim();
+
+        // Error handling jika pilihan kosong
+        if (teksPilihan === "") {
 
                 alert(
                     "Pilihan " + (i + 1) + " belum diisi."
@@ -136,12 +257,11 @@
                 input.focus();
 
                 return;
-            }
+            }    
 
-
-            // Memasukkan teks ke array
-            pilihanArray.push(teksPilihan);
-        }
+        // Memasukkan teks ke array
+        pilihanArray.push(teksPilihan);
+    }
 
 
         // Menampilkan array di Console
@@ -153,6 +273,9 @@
         alert(
             "Pilihan berhasil disimpan ke dalam array."
         );
+
+        buatRadioButton();
+        buatDropdown();
     }
 </script>
 
