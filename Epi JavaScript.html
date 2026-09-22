@@ -63,6 +63,26 @@
         OK
     </button>
 
+    <hr>
+
+    <h2>Email</h2>
+
+    <label for="email">Email:</label>
+
+    <input
+        type="email"
+        id="email"
+        placeholder="contoh@email.com"
+    >
+
+    <br><br>
+
+    <button id="btnEmail">
+        OK
+    </button>
+
+    <p id="emailError"></p>
+
     <script>
         // Event controler tombol OK
         document
@@ -131,6 +151,10 @@
             .getElementById("btnPilihanFinal")
             .addEventListener("click", cekPilihan);
         
+        document
+            .getElementById("btnEmail")
+            .addEventListener("click", prosesEmail);
+        
         // Fungsi cek pilihan
         function cekPilihan() {
 
@@ -164,6 +188,52 @@
 
             alert(
                 "Pilihan berhasil ditetapkan."
+            );
+        }
+
+        // Fungsi Email
+        function prosesEmail() {
+
+            const emailInput =
+                document.getElementById("email");
+
+            const emailError =
+                document.getElementById("emailError");
+
+            const email =
+                emailInput.value.trim();
+
+            emailError.textContent = "";
+
+
+        // Pattern matching email
+            const emailPattern =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+        // Error handling email
+            if (!emailPattern.test(email)) {
+
+                alert(
+                    "Format email tidak valid. Silakan masukkan email dengan benar."
+                );
+
+                emailError.textContent =
+                    "Contoh format yang benar: nama@email.com";
+
+                emailInput.focus();
+
+                return;
+            }
+
+
+            alert(
+                "Email berhasil diterima."
+            );
+
+            console.log(
+                "Email:",
+                email
             );
         }
 
