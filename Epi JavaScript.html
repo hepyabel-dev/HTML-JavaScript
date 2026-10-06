@@ -119,90 +119,144 @@
             border: none;
             border-top: 1px solid #ccc;
         }
+
+        #halaman1,
+        #halaman2,
+        #halaman3 {
+            border: 1px solid black;
+            padding: 30px 70px;
+            margin: 20px auto;
+            max-width: 800px;
+            box-sizing: border-box;
+            background-color: white;
+        }
+
+        #halaman2,
+        #halaman3 {
+            display: none;
+        }
     </style>
 </head>
 
 <body>
 
-    <h1>Tugas JavaScript</h1>
+    <!--HALAMAN 1-->
 
-    <h2>Identitas</h2>
+    <div id="halaman1">
 
-    <img src="FotoAku.jpeg.jpeg" alt="Foto Epi" width="200">
+        <h1>Tugas JavaScript</h1>
 
-    <p>Nama : Epi</p>
-    <p>NIM  : 255314047</p>
+        <h2>Identitas</h2>
 
-    <hr>
+        <img
+            src="FotoAku.jpeg.jpeg"
+            alt="Foto Epi"
+            width="200"
+        >
 
-    <h2>Data Pilihan</h2>
+        <p>Nama : Epi</p>
+        <p>NIM  : 255314047</p>
 
-    <label for="nama">Nama:</label>
-    <input type="text" id="nama">
+        <hr>
 
-    <br><br>
+        <h2>Data Awal</h2>
 
-    <label for="jumlah">Jumlah Pilihan:</label>
-    <input type="number" id="jumlah" min="1" max="10">
+        <label for="nama">
+            Nama:
+        </label>
 
-    <br><br>
+        <input
+            type="text"
+            id="nama"
+        >
 
-    <button id="btnJumlah">OK</button>
+        <br><br>
 
-    <div id="choiceInputs"></div>
+        <label for="jumlah">
+            Jumlah Pilihan:
+        </label>
 
-    <br>
+        <input
+            type="number"
+            id="jumlah"
+            min="1"
+            max="10"
+        >
 
-    <button id="btnSimpanPilihan">
-        Simpan Pilihan
-    </button>
+        <br><br>
 
-    <hr>
+        <button id="btnJumlah">
+            OK
+        </button>
 
-    <h2>Pilihan</h2>
+    </div>
 
-    <div id="radioContainer"></div>
+    <!--HALAMAN 2-->
+  
+    <div id="halaman2">
 
-    <br>
+        <h2>Data Pilihan</h2>
 
-    <label for="dropdown">Atau pilih dari Drop Down:</label>
+        <div id="choiceInputs"></div>
 
-    <br><br>
+        <br>
 
-    <select id="dropdown"></select>
+        <button id="btnSimpanPilihan">
+            Simpan Pilihan
+        </button>
 
-    <br><br>
+        <hr>
 
-    <button id="btnPilihanFinal">
-        OK
-    </button>
+        <h2>Pilihan</h2>
 
-    <hr>
+        <div id="radioContainer"></div>
 
-    <h2>Email</h2>
+        <br>
 
-    <label for="email">Email:</label>
+        <button id="btnPilihanFinal">
+            OK
+        </button>
 
-    <input
-        type="email"
-        id="email"
-        placeholder="contoh@email.com"
-    >
+    </div>
 
-    <br><br>
+    <!--HALAMAN 3-->
 
-    <button id="btnEmail">
-        OK
-    </button>
+    <div id="halaman3">
 
-    <p id="emailError"></p>
-    <p id="hasilAkhir"></p>
+        <h2>Email</h2>
+
+        <label for="email">
+            Email:
+        </label>
+
+        <input
+            type="email"
+            id="email"
+            placeholder="contoh@email.com"
+        >
+
+        <br><br>
+
+        <button id="btnEmail">
+            OK
+        </button>
+
+        <p id="emailError"></p>
+
+        <p id="hasilAkhir"></p>
+
+    </div>
 
     <script>
         // Event controler tombol OK
         document
             .getElementById("btnJumlah")
             .addEventListener("click", buatInputPilihan);
+        
+        function tampilkanHalaman2() {
+            document.getElementById("halaman1").style.display = "none";
+            document.getElementById("halaman2").style.display = "block";
+        }
 
         // Fungsi membuat input pilihan menggunakan loop
         function buatInputPilihan() {
@@ -226,6 +280,8 @@
 
             return;
         }
+
+        tampilkanHalaman2();
 
         // Loop membuat input jumlah pilihan
             for (let i = 0; i < jumlah; i++) {
@@ -265,6 +321,11 @@
         document
             .getElementById("btnPilihanFinal")
             .addEventListener("click", cekPilihan);
+
+        function tampilkanHalaman3() {
+            document.getElementById("halaman2").style.display = "none";
+            document.getElementById("halaman3").style.display = "block";
+        }
         
         document
             .getElementById("btnEmail")
@@ -277,10 +338,6 @@
                 document.querySelector(
                     'input[name="pilihanRadio"]:checked'
                 );
-
-            const pilihanDropdown =
-                document.getElementById("dropdown").value;
-
 
             if (!radioTerpilih) {
 
@@ -296,14 +353,11 @@
                 radioTerpilih.value
             );
 
-            console.log(
-                "Pilihan Drop Down:",
-                pilihanDropdown
-            );
-
             alert(
                 "Pilihan berhasil ditetapkan."
             );
+
+            tampilkanHalaman3();
         }
 
         // Fungsi Email
@@ -424,28 +478,6 @@
             }
         }
 
-        // Membuat drop down dari array
-        function buatDropdown() {
-
-            const dropdown =
-                document.getElementById("dropdown");
-
-            dropdown.innerHTML = "";
-
-            for (let i = 0; i < pilihanArray.length; i++) {
-
-                const option =
-                    document.createElement("option");
-
-                option.value = pilihanArray[i];
-
-                option.textContent =
-                    pilihanArray[i];
-
-                dropdown.appendChild(option);
-            }
-        }
-
         // Loop mengambil setiap teks pilihan
         for (let i = 0; i < jumlah; i++) {
 
@@ -483,7 +515,6 @@
         );
 
         buatRadioButton();
-        buatDropdown();
     }
 </script>
 
